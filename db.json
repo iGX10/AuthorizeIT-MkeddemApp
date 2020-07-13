@@ -1,0 +1,70 @@
+{
+  "raisons": [
+    {
+      "id": "1",
+      "nom": "raison1"
+    },
+    {
+      "id": "2",
+      "nom": "raison2"
+    },
+    {
+      "id": "3",
+      "nom": "raison3"
+    },
+    {
+      "id": "4",
+      "nom": "raison4"
+    }
+  ],
+  "citoyens": [
+    {
+      "id": "1",
+      "cin": "BH111111",
+      "nom": "AIT ALLA",
+      "prenom": "Oussama",
+      "adresse": "Adresse1, Casa",
+      "tel": "0611111111",
+      "raison": "1",
+      "mkeddem": "1"
+    },
+    {
+      "id": "2",
+      "cin": "BH222222",
+      "nom": "CHIHAB",
+      "prenom": "Yasser",
+      "adresse": "Adresse2, Casa",
+      "tel": "0622222222",
+      "raison": "2",
+      "mkeddem": "1"
+    },
+    {
+      "id": "3",
+      "cin": "BH333333",
+      "nom": "LABLAOUI",
+      "prenom": "Hajar",
+      "adresse": "Adresse3, Rabat",
+      "tel": "0633333333",
+      "raison": "3",
+      "mkeddem": "2"
+    }
+  ],
+  "mkeddems": [
+    {
+      "id": "1",
+      "cin": "BH444444",
+      "nom": "ACHIR",
+      "prenom": "Youssef",
+      "annexe": "Adresse4, Casa",
+      "tel": "0644444444"
+    },
+    {
+      "id": "2",
+      "cin": "BH555555",
+      "nom": "KHATTACH",
+      "prenom": "Ouiam",
+      "annexe": "Adresse5, Rabat",
+      "tel": "0655555555"
+    }
+  ]
+}
