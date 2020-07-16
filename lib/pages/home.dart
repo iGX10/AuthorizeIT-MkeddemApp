@@ -42,23 +42,23 @@ class _HomeState extends State<Home> {
     } on PlatformException catch (ex) {
       if (ex.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
-          qrScanError = "Camera permission was denied";
+          qrScanError = "L'autorisation de la caméra a été refusée";
           qrContent = "";
         });
       } else {
         setState(() {
-          qrScanError = "Unknown Error $ex";
+          qrScanError = "Une erreur inconnue : $ex";
           qrContent = "";
         });
       }
     } on FormatException {
       setState(() {
-        qrScanError = "You pressed the back button before scanning anything";
+        qrScanError = "Vous avez appuiez sur le bouton de retour en arrière sans scannez aucune chose!";
         qrContent = "";
       });
     } catch (ex) {
       setState(() {
-        qrScanError = "Unknown Error $ex";
+        qrScanError = "Une erreur inconnue : $ex";
         qrContent = "";
       });
     }
@@ -118,35 +118,16 @@ class _HomeState extends State<Home> {
                                 });
                               }
 
-                              // navigate to loading page, send cin and qrContent as arguments
-
-
-                              /*if(qrContent.isNotEmpty) {
-                                await Navigator.pushNamed(context, '/loading', arguments: {
-                                  "mkeddemCin": cin,
-                                  "qrContent": qrContent
+                              if(qrScanError.isNotEmpty) {
+                                Navigator.pushNamed(context, '/error', arguments: {
+                                  "error": qrScanError,
                                 });
-                              }*/
+                              }
 
                             },
                             icon: Icon(Icons.settings_overscan),
                             label: Text('Scanner'))
                       ],
-                    ),
-                  ),
-                  SizedBox(height: 100,),
-                  qrScanError.isNotEmpty?Text(
-                    qrScanError,
-                    style: TextStyle(
-                      color: Colors.red[800],
-                      fontSize: 22.0,
-                    ),
-                    textAlign: TextAlign.center,
-                  ):Text(
-                    '',
-                    style: TextStyle(
-                      color: Colors.red[800],
-                      fontSize: 22.0,
                     ),
                   )
                 ],
