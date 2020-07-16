@@ -19,6 +19,8 @@ class _InfoState extends State<Info> {
 
   String citizenStatus = '...';
 
+  String mkeddemId;
+
   void getReasonName(context, id) async {
     try{
       Response response = await get(api_base_url+reasons_url+id);
@@ -70,10 +72,38 @@ class _InfoState extends State<Info> {
     }
   }
 
+  void checkMkeddem(cin) async {
+    try {
+      Response response = await get(api_base_url+mkeddems_url+'?cin='+cin);
+      if(response.statusCode == 200) {
+        List mkeddemList = jsonDecode(response.body);
+        if(mkeddemList.length == 0) {
+          Navigator.pushReplacementNamed(context, '/error', arguments: {
+            "error": "Le CIN du mkeddem utilisé n'existe pas dans la base de données!",
+          });
+        }
+        else {
+          mkeddemId = mkeddemList[0]['id'];
+        }
+      }
+      else {
+        Navigator.pushReplacementNamed(context, '/error', arguments: {
+          "error": "Erreur lors de l'appel d'une ressource : "+response.body,
+        });
+      }
+    }
+    catch(e) {
+      Navigator.pushReplacementNamed(context, '/error', arguments: {
+        "error": e.toString(),
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 
     data = ModalRoute.of(context).settings.arguments;
+    checkMkeddem(data['mkeddemCin']);
 
     qrContent = jsonDecode(data['qrContent']);
 
@@ -189,7 +219,7 @@ class _InfoState extends State<Info> {
                     color: themeSecondaryColor,
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, '/loading', arguments: {
-                        "mkeddemCin": data['mkeddemCin'],
+                        "mkeddemId": mkeddemId,
                         "qrContent": data['qrContent']
                       });
                     },
