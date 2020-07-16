@@ -4,7 +4,7 @@ import 'package:authorizeit/pages/loading.dart';
 import 'package:authorizeit/pages/authorized.dart';
 import 'package:authorizeit/pages/error.dart';
 import 'package:authorizeit/pages/info.dart';
-import 'package:authorizeit/Shared/ThemeColors.dart';
+import 'package:authorizeit/Shared/constants.dart';
 
 void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,

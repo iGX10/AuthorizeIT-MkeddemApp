@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/services.dart';
-import 'package:authorizeit/Shared/ThemeColors.dart';
+import 'package:authorizeit/Shared/constants.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -91,8 +91,9 @@ class _HomeState extends State<Home> {
         title: Text(
           'AuthorizeIT',
           style: TextStyle(
-              fontSize: 15.0,
-              fontWeight: FontWeight.bold
+            fontSize: 15.0,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 2
           ),
         ),
         elevation: 0,
