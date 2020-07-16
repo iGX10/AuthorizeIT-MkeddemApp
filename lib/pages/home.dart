@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/services.dart';
+import 'package:authorizeit/Shared/ThemeColors.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,7 +18,25 @@ class _HomeState extends State<Home> {
 
   Widget buildCinField() {
     return TextFormField(
-      decoration: InputDecoration(labelText: 'CIN du Mkeddem'),
+      decoration: InputDecoration(
+        labelText: 'CIN',
+        labelStyle: TextStyle(color: themeSecondaryColor),
+        counterStyle: TextStyle(color: themeSecondaryColor),
+
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: BorderSide(
+              color: themeSecondaryColor,
+            )
+        ),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: BorderSide(
+              color: themeLightColor,
+            )
+        )
+      ),
+      style: TextStyle(color: Colors.white),
       maxLength: 10,
       validator: (String value) {
         if(value.isEmpty) {
@@ -67,71 +86,72 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    'AuthorizeIT',
-                    style: TextStyle(
-                      fontSize: 35.0,
-                      fontWeight: FontWeight.bold
-                    ),
+      backgroundColor: themePrimaryColor,
+      appBar: AppBar(
+        title: Text(
+          'AuthorizeIT',
+          style: TextStyle(
+              fontSize: 15.0,
+              fontWeight: FontWeight.bold
+          ),
+        ),
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: themePrimaryColor,
+      ),
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 100.0),
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      buildCinField(),
+                      SizedBox(height: 100,),
+                      FlatButton(
+                          child: Image(
+                            image: AssetImage('assets/qr-code.png'),
+                            height: 100,
+                            width: 100,
+                          ),
+                          onPressed: () async {
+                            if(!_formKey.currentState.validate()) {
+                              return;
+                            }
+
+                            _formKey.currentState.save();
+
+                            // launch the qr code scanner to get users info
+
+                            await _scanQR();
+
+                            // navigate to info page
+
+                            if(qrContent.isNotEmpty) {
+                              Navigator.pushNamed(context, '/info', arguments: {
+                                "mkeddemCin": cin,
+                                "qrContent": qrContent
+                              });
+                            }
+
+                            if(qrScanError.isNotEmpty) {
+                              Navigator.pushNamed(context, '/error', arguments: {
+                                "error": qrScanError,
+                              });
+                            }
+
+                          }
+                      )
+                    ],
                   ),
-                  SizedBox(height: 30.0),
-                  Text(
-                    'Bonjour,',
-                    style: TextStyle(
-                      fontSize: 22.0
-                    ),
-                  ),
-                  SizedBox(height: 50.0),
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        buildCinField(),
-                        SizedBox(height: 25,),
-                        RaisedButton.icon(
-                            onPressed: () async {
-                              if(!_formKey.currentState.validate()) {
-                                return;
-                              }
-
-                              _formKey.currentState.save();
-
-                              // launch the qr code scanner to get users info
-
-                              await _scanQR();
-
-                              // navigate to info page
-
-                              if(qrContent.isNotEmpty) {
-                                Navigator.pushNamed(context, '/info', arguments: {
-                                  "mkeddemCin": cin,
-                                  "qrContent": qrContent
-                                });
-                              }
-
-                              if(qrScanError.isNotEmpty) {
-                                Navigator.pushNamed(context, '/error', arguments: {
-                                  "error": qrScanError,
-                                });
-                              }
-
-                            },
-                            icon: Icon(Icons.settings_overscan),
-                            label: Text('Scanner'))
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
           ),
         ),
