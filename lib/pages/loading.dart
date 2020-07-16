@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:authorizeit/Shared/constants.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -54,7 +55,7 @@ class _LoadingState extends State<Loading> {
     authorizeCitizen(data['mkeddemId'], data['qrContent']);
 
     return Scaffold(
-        backgroundColor: Colors.blue[900],
+        backgroundColor: themePrimaryColor,
         body: Center(
             child: SpinKitFadingCube(
               color: Colors.white,
