@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/services.dart';
 
@@ -109,20 +108,25 @@ class _HomeState extends State<Home> {
                               // launch the qr code scanner to get users info
 
                               await _scanQR();
-                              print('######################################');
-                              print(qrScanError);
-                              print(qrContent);
-                              print('######################################');
 
-                              // navigate to loading page, send cin and qrContent as arguments
-
+                              // navigate to info page
 
                               if(qrContent.isNotEmpty) {
-                                await Navigator.pushNamed(context, '/loading', arguments: {
+                                Navigator.pushNamed(context, '/info', arguments: {
                                   "mkeddemCin": cin,
                                   "qrContent": qrContent
                                 });
                               }
+
+                              // navigate to loading page, send cin and qrContent as arguments
+
+
+                              /*if(qrContent.isNotEmpty) {
+                                await Navigator.pushNamed(context, '/loading', arguments: {
+                                  "mkeddemCin": cin,
+                                  "qrContent": qrContent
+                                });
+                              }*/
 
                             },
                             icon: Icon(Icons.settings_overscan),
