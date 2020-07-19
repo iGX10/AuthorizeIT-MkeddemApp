@@ -30,10 +30,10 @@
     },
     {
       "id": "2",
-      "cin": "BH222222",
+      "cin": "BE123",
       "nom": "CHIHAB",
       "prenom": "Yasser",
-      "adresse": "Adresse2, Casa",
+      "adresse": "Rue 123",
       "tel": "0622222222",
       "raison": "2",
       "mkeddem": "1"
